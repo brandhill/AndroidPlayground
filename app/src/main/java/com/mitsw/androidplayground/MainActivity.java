@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.mitsw.androidplayground.memoryleak.MemoryLeakActivity;
 import com.mitsw.androidplayground.thread.ThreadDemoActivity;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private SimpleAdapter simpleAdapter;
 
     private String[] textArray = {
-            "Thread Pool"
+            "Thread Pool", "Memory Leak Detect Demo"
     };
 
     @Override
@@ -45,10 +46,17 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent;
 
                 switch (position){
                     case 0:
-                        Intent intent = new Intent(MainActivity.this, ThreadDemoActivity.class);
+                        intent = new Intent(MainActivity.this, ThreadDemoActivity.class);
+                        startActivity(intent);
+
+                        break;
+
+                    case 1:
+                        intent = new Intent(MainActivity.this, MemoryLeakActivity.class);
                         startActivity(intent);
 
                         break;
