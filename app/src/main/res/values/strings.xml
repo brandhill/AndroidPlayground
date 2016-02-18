@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">AndroidPlayGround</string>
+    <string name="app_name">PlayGround</string>
+    <string name="title_activity_animation">AnimationActivity</string>
 </resources>

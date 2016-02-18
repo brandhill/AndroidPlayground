@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class ThreadDemoActivity extends AppCompatActivity {
-    public final static String TAG = "ThreadDemo";
+    public final static String TAG = "ThreadDemoActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class ThreadDemoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //runFixedTasks();
                 //runSingleTask();
-                runZeroThreadTasks();
+                //runZeroThreadTasks();
             }
         });
     }
