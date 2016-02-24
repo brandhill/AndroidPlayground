@@ -13,11 +13,16 @@ import com.mitsw.androidplayground.memoryleak.MemoryLeakActivity;
 import com.mitsw.androidplayground.rx.RxJavaDemoActivity;
 import com.mitsw.androidplayground.services.MitswService;
 import com.mitsw.androidplayground.thread.ThreadDemoActivity;
+import com.mitsw.androidplayground.utils.log.RxSubjectHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import rx.Observable;
+import rx.subjects.PublishSubject;
+import rx.subjects.Subject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +41,18 @@ public class MainActivity extends AppCompatActivity {
         //ParseAnalytics.trackAppOpenedInBackground(getIntent());
 
         setContentView(R.layout.activity_main);
+
+
+
+        RxSubjectHelper usernameModel = RxSubjectHelper.instanceOf();
+        //be sure to unsubscribe somewhere when activity is "dying" e.g. onDestroy
+        usernameModel.getStringObservable()
+                .subscribe(s -> {
+                    System.out.println("received in Main activity : " + s);
+                }, throwable -> {
+                    // Normally no error will happen here based on this example.
+                });
+
 
         listView = (ListView)findViewById(R.id.listView);
         List<Map<String, Object>> items = new ArrayList<Map<String,Object>>();
