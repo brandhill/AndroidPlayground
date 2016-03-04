@@ -10,6 +10,7 @@ import com.mitsw.androidplayground.utils.log.RxSubjectHelper;
 public class MitswService extends Service {
 
     private final static String TAG = "MitswService";
+    public final static String FROM = "from";
 
 
     public MitswService() {
@@ -34,6 +35,11 @@ public class MitswService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         Log.d(TAG, "onStartCommand: ");
+
+        int from = intent.getIntExtra(FROM, -1);
+        if(from != -1){
+            Log.d(TAG, "from: " + from);
+        }
 
         RxSubjectHelper usernameModel = RxSubjectHelper.instanceOf();
         usernameModel.getStringObservable()

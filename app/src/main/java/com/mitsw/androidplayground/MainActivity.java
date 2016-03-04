@@ -20,10 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import rx.Observable;
-import rx.subjects.PublishSubject;
-import rx.subjects.Subject;
-
 public class MainActivity extends AppCompatActivity {
 
 
@@ -31,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private SimpleAdapter simpleAdapter;
 
     private String[] textArray = {
-            "Thread Pool", "Memory Leak Detection", "Animation", "Rx"
+            "Thread Pool", "Memory Leak Detection", "Animation", "Rx", "Notification"
     };
 
     @Override
