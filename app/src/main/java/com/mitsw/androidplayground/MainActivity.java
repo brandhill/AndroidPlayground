@@ -9,7 +9,9 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.mitsw.androidplayground.animation.AnimationActivity;
+import com.mitsw.androidplayground.animation.RippleActivity;
 import com.mitsw.androidplayground.memoryleak.MemoryLeakActivity;
+import com.mitsw.androidplayground.notification.NotificationActivity;
 import com.mitsw.androidplayground.rx.RxJavaDemoActivity;
 import com.mitsw.androidplayground.services.MitswService;
 import com.mitsw.androidplayground.thread.ThreadDemoActivity;
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private SimpleAdapter simpleAdapter;
 
     private String[] textArray = {
-            "Thread Pool", "Memory Leak Detection", "Animation", "Rx", "Notification"
+            "Thread Pool", "Memory Leak Detection", "Animation", "Rx", "Notification", "Ripple Animation"
     };
 
     @Override
@@ -86,6 +88,16 @@ public class MainActivity extends AppCompatActivity {
                         intent = new Intent(MainActivity.this, RxJavaDemoActivity.class);
                         startActivity(intent);
                         break;
+
+                    case 4:
+                        intent = new Intent(MainActivity.this, NotificationActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 5:
+                        intent = new Intent(MainActivity.this, RippleActivity.class);
+                        startActivity(intent);
+                        break;
+
                 }
             }
         });

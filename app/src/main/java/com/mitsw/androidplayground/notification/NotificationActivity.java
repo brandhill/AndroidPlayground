@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -14,6 +15,10 @@ import android.widget.RemoteViews;
 
 import com.mitsw.androidplayground.R;
 import com.mitsw.androidplayground.services.MitswService;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 public class NotificationActivity extends AppCompatActivity {
 
@@ -65,7 +70,7 @@ public class NotificationActivity extends AppCompatActivity {
 
         Intent intent1 = new Intent(this, MitswService.class);
         intent1.putExtra(MitswService.FROM, 2);
-        PendingIntent contentPi = PendingIntent.getService(this, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent contentPendingIntent = PendingIntent.getService(this, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Intent intent2 = new Intent(this, MitswService.class);
         intent2.putExtra(MitswService.FROM, 4);
@@ -84,6 +89,12 @@ public class NotificationActivity extends AppCompatActivity {
         bigContentView.setOnClickPendingIntent(R.id.big_root, bigContentPi);
 
 
+        RemoteViews headsupView = new RemoteViews(NotificationActivity.this.getPackageName(), R.layout.notification_layout_headsup);
+        headsupView.setTextViewText(R.id.title, "Look up");
+        headsupView.setTextViewText(R.id.subtitle, "I am here");
+
+
+
         // bigView.setOnClickPendingIntent() etc..
 //
 //        NotificationCompat.Builder mNotifyBuilder = new NotificationCompat.Builder(this);
@@ -97,13 +108,25 @@ public class NotificationActivity extends AppCompatActivity {
 
 
         Notification notification =  new NotificationCompat.Builder(this)
-                .setContent(contentView)
-                .setContentIntent(contentPi)
+//                .setContent(contentView)
+                .setWhen(System.currentTimeMillis())
+                .setAutoCancel(true)
+                .setContentIntent(contentPendingIntent)
                 .setPriority(Notification.PRIORITY_MAX)
-                .setSmallIcon(R.mipmap.ic_launcher).build();
+                .setVibrate(new long[0])
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentText("text")
+                .setContentTitle("title")
+                .build();
 
-
+        notification.tickerText = "12345";
         notification.bigContentView = bigContentView;
+
+        if(Build.VERSION.SDK_INT >= 21) {
+            notification.headsUpContentView = headsupView;
+        }
+
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
 
         //NotificationManagerCompat mNotifyManager = NotificationManagerCompat.from(this);
