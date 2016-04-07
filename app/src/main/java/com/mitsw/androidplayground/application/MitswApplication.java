@@ -2,6 +2,7 @@ package com.mitsw.androidplayground.application;
 
 import android.app.Application;
 
+import com.mitsw.androidplayground.utils.DimenUtils;
 import com.squareup.leakcanary.LeakCanary;
 
 /**
@@ -17,6 +18,8 @@ public class MitswApplication extends Application{
 
 
         LeakCanary.install(this);
+
+        DimenUtils.initMetrics(this);
     }
 
 

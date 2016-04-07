@@ -6,10 +6,25 @@ import android.os.Bundle;
 import com.mitsw.androidplayground.R;
 
 public class RippleActivity extends AppCompatActivity {
+    RippleBackground mRippleBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ripple);
+
+        mRippleBackground = (RippleBackground)findViewById(R.id.ripple_background);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mRippleBackground.startRippleAnimation();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mRippleBackground.stopRippleAnimation();
     }
 }

@@ -36,9 +36,12 @@ public class MitswService extends Service {
 
         Log.d(TAG, "onStartCommand: ");
 
-        int from = intent.getIntExtra(FROM, -1);
-        if(from != -1){
-            Log.d(TAG, "from: " + from);
+
+        if(intent != null) {
+            int from = intent.getIntExtra(FROM, -1);
+            if (from != -1) {
+                Log.d(TAG, "from: " + from);
+            }
         }
 
         RxSubjectHelper usernameModel = RxSubjectHelper.instanceOf();
