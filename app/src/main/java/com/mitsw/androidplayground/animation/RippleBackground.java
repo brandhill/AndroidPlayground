@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.RelativeLayout;
 
-import com.mitsw.androidplayground.R;
 import com.mitsw.androidplayground.utils.DimenUtils;
 
 import java.util.ArrayList;
@@ -30,7 +29,6 @@ public class RippleBackground extends RelativeLayout {
     private boolean animationRunning = false;
     private AnimatorSet animatorSet;
     private RelativeLayout.LayoutParams mRippleParams;
-    private ArrayList<RippleView> rippleViewList = new ArrayList<RippleView>();
     private RadarScanView mRadarScanView;
 
     private int centerX;
@@ -62,7 +60,6 @@ public class RippleBackground extends RelativeLayout {
         mRippleParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         mRippleParams.addRule(CENTER_IN_PARENT, TRUE);
 
-        //mRadarScanView = (RadarScanView) findViewById(R.id.radar_scan_view);
         mRadarScanView = new RadarScanView(getContext());
         mRadarScanView.setVisibility(INVISIBLE);
         addView(mRadarScanView, mRippleParams);
@@ -129,7 +126,6 @@ public class RippleBackground extends RelativeLayout {
     private ValueAnimator createRippleScaleAnimator(int size, int strokeColor, int fillColor, long duration, long startDelay, AnimatorListenerAdapter listenerAdapter) {
 
         final RippleView ripple = new RippleView(getContext(), size, strokeColor, fillColor);
-        rippleViewList.add(ripple);
         addView(ripple, mRippleParams);
 
         final ValueAnimator scaleAnimator = ValueAnimator.ofFloat(0.0f, 10000.0f);
@@ -145,7 +141,7 @@ public class RippleBackground extends RelativeLayout {
             }
         });
 
-        if(listenerAdapter != null) {
+        if (listenerAdapter != null) {
             scaleAnimator.addListener(listenerAdapter);
         }
 
@@ -160,7 +156,7 @@ public class RippleBackground extends RelativeLayout {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                if(mRadarScanView!=null){
+                if (mRadarScanView != null) {
                     mRadarScanView.setVisibility(VISIBLE);
                     mRadarScanView.startScanAnimation();
                 }
@@ -190,7 +186,7 @@ public class RippleBackground extends RelativeLayout {
             animatorSet.end();
             animationRunning = false;
 
-            if(mRadarScanView != null) {
+            if (mRadarScanView != null) {
                 mRadarScanView.setVisibility(INVISIBLE);
                 mRadarScanView.stopScanAnimation();
             }
