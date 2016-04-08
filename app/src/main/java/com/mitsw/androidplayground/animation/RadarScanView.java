@@ -70,7 +70,6 @@ public class RadarScanView extends View {
     private void init(AttributeSet attrs, Context context) {
         initPaint();
 
-        //得到当前屏幕的像素宽高
         defaultWidth = DimenUtils.dp2px(context, DEFAULT_WIDTH);
         defaultHeight = DimenUtils.dp2px(context, DEFAULT_HEIGHT);
     }

@@ -7,7 +7,7 @@
     android:background="@drawable/bkg_gradient_transfer"
     tools:context="com.mitsw.androidplayground.animation.RippleActivity">
 
-    <com.mitsw.androidplayground.animation.RippleBackground
+    <com.mitsw.androidplayground.animation.RippleScaleAnimView
         android:id="@+id/ripple_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

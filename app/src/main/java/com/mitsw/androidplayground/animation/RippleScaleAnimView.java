@@ -3,6 +3,8 @@ package com.mitsw.androidplayground.animation;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -21,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Created by Hill on 2016/4/6.
  */
-public class RippleBackground extends RelativeLayout {
+public class RippleScaleAnimView extends RelativeLayout {
 
-    private static final String TAG = "RippleBackground";
+    private static final String TAG = "RippleScaleAnimView";
 
 
     private boolean animationRunning = false;
@@ -34,16 +36,16 @@ public class RippleBackground extends RelativeLayout {
     private int centerX;
     private int centerY;
 
-    public RippleBackground(Context context) {
+    public RippleScaleAnimView(Context context) {
         super(context);
     }
 
-    public RippleBackground(Context context, AttributeSet attrs) {
+    public RippleScaleAnimView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public RippleBackground(Context context, AttributeSet attrs, int defStyleAttr) {
+    public RippleScaleAnimView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
@@ -82,7 +84,6 @@ public class RippleBackground extends RelativeLayout {
         public RippleView(Context context) {
             super(context);
 
-            //this.animate().scaleX(0.0f).scaleY(0.0f).setDuration(1);
             this.setScaleX(0.0f);
             this.setScaleY(0.0f);
         }
@@ -112,6 +113,11 @@ public class RippleBackground extends RelativeLayout {
             strokepaint.setColor(strokeColor);
         }
 
+        public void setFillColor(int color) {
+            fillColor = color;
+            fillPaint.setColor(fillColor);
+        }
+
         @Override
         protected void onDraw(Canvas canvas) {
             int xPos = (canvas.getWidth() / 2);
@@ -128,24 +134,19 @@ public class RippleBackground extends RelativeLayout {
         final RippleView ripple = new RippleView(getContext(), size, strokeColor, fillColor);
         addView(ripple, mRippleParams);
 
-        final ValueAnimator scaleAnimator = ValueAnimator.ofFloat(0.0f, 10000.0f);
-        scaleAnimator.setStartDelay(startDelay);
-        scaleAnimator.setDuration(duration);
-        scaleAnimator.setInterpolator(new OvershootInterpolator(1.0f));
-        scaleAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float scale = (Float) animation.getAnimatedValue() / 10000.0f;
-                ripple.setScaleX(scale);
-                ripple.setScaleY(scale);
-            }
-        });
+        PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat("scaleY", 0f, 1f);
+        PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat("scaleX", 0f, 1f);
+        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(ripple, scaleX, scaleY);
+        animator.setInterpolator(new OvershootInterpolator(1.0f));
+        animator.setStartDelay(startDelay);
+        animator.setDuration(duration);
+        animator.start();
 
         if (listenerAdapter != null) {
-            scaleAnimator.addListener(listenerAdapter);
+            animator.addListener(listenerAdapter);
         }
 
-        return scaleAnimator;
+        return animator;
     }
 
     private ArrayList<Animator> createRippleCycles() {
